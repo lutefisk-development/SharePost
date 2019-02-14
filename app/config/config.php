@@ -3,7 +3,7 @@
   define('DB_HOST', 'localhost');
   define('DB_USER', 'root');
   define('DB_PASS', 'mysql');
-  define('DB_NAME', 'tmvc');
+  define('DB_NAME', 'shareposts');
 
   // App root
   define('APPROOT', dirname(dirname(__FILE__)));
@@ -12,4 +12,7 @@
   define('URLROOT', 'http://localhost/_Udemy/OOP_PHP/traversymvc');
 
   // Site name
-  define('SITENAME','Complete MVC');
+  define('SITENAME','SharePost'); 
+
+  // App Version
+  define('APPVERSION', '1.0.0');
