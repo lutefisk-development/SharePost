@@ -44,14 +44,14 @@ class Users extends Controller{
       if(empty($data['password'])) {
         $data['password_err'] = 'Please enter password';
       } elseif(strlen($data['password']) < 6) {
-        $data['password_err'] = 'Password must be atleast 6 characters';
+        $data['password_err'] = 'Password must be atleast 6 characters'; 
       }
 
       // Validate Confirm Password
       if(empty($data['confirm_password'])) {
         $data['confirm_password_err'] = 'Please confirm password';
       } else {
-        if($date['password'] != $data['confirm_password']) {
+        if($data['password'] != $data['confirm_password']) {
           $data['confirm_password_err'] = 'Passwords do not match';
         }
       }
@@ -59,7 +59,16 @@ class Users extends Controller{
       // Make sure errors are empty
       if(empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
         // Validated
-        die('SUCCESS!');
+        
+        // Hash Password
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+        // Register User
+        if($this->userModel->register($data)) {
+          redirect('users/login');
+        } else {
+          die('Something went wrong!');
+        }
       } else {
         // Load view with errors
         $this->view('users/register', $data);
